@@ -1,60 +1,52 @@
 moves = {}
 
 
-class AttackingMove:
-    def __init__(self, name, damage, miss_chance, crit_chance):
-        self.Name = name
-        self.Damage = damage
+class Move:
+
+    def __init__(self, name, cost):
+        self.name = name
+        self.cost = cost
+        self.moveType = "Nothing"
+
+    def use_move(self, entity):
+        new_mana = entity.Mana - self.cost
+        if new_mana < 0:
+            new_mana = 0
+        entity.mana = new_mana
+
+
+class Attack(Move):
+
+    def __init__(self, name, cost, damage, miss_chance, crit_chance, recoil):
+        super().__init__(name, cost)
+        self.damage = damage
         self.missChance = miss_chance
         self.critChance = crit_chance
+        self.recoil = recoil
+        self.moveType = "Attack"
 
 
-class RangedMove(AttackingMove):
-    def __init__(self, name, damage, miss_chance, crit_chance, projectile_amount):
-        super().__init__(name, damage, miss_chance, crit_chance)
-        self.ProjectileAmount = projectile_amount
-        self.missChance *= 0.5  # Less likely to do a crit but more likely to hit
-        self.critChance *= 0.5
+class HealingMove(Move):
+
+    def __init__(self, name, cost, health_given):
+        super().__init__(name, cost)
+        self.healthGiven = health_given
+        self.moveType = "healUp"
+
+# Adding in moves
 
 
-class PhysicalMove(AttackingMove):
-    def __init__(self, name, damage, miss_chance, crit_chance):
-        super().__init__(name, damage, miss_chance, crit_chance)
-        self.missChance *= 1.5  # More likely to do a crit but less likely to hit
-        self.critChance *= 1.5
+# -- health moves --
+moves["Small heal"] = HealingMove("Small heal", 20, 30)
+moves["Medium heal"] = HealingMove("Medium heal", 50, 60)
+moves["Big heal"] = HealingMove("Big heal", 70,
+                                120)  # <-- least common healing move
 
-
-class HealingMove:
-    def __init__(self, name, health_healed):
-        self.Name = name
-        self.healthHealed = health_healed
-
-
-class StatMove:
-    def __init__(self, name, reduction):
-        self.Name = name
-        self.Reduction = reduction
-
-
-# HEALTH MOVES (name, health healed)
-moves["Small Heal"] = HealingMove("Small Heal", 40)
-moves["Medium Heal"] = HealingMove("Medium Heal", 120)
-moves["Big Heal"] = HealingMove("Big Heal", 400)
-
-# STAT MOVES (name, damage reduction as a percentage)
-moves["Damage Reduction"] = StatMove("Damage Reduction", 0.8)
-
-# RANGED MOVES (name, damage, miss chance, crit chance, projectile amount)
-moves["Flaming Cryo Blast"] = RangedMove("Flaming Cryo Blast", 40, 3, 4, 2)
-moves["Omega Beam"] = RangedMove("Omega Beam", 80, 12, 2, 1)
-moves["Spitting Firecrackers"] = RangedMove("Spitting Firecrackers", 30, 8, 4, 3)
-moves["Bubble Blast"] = RangedMove("Bubble Blast", 5, 2, 2, 12)
-moves["Zeus' Blessings"] = RangedMove("Zeus' Blessings", 40, 6, 4, 1)
-
-# PHYSICAL MOVES (name, damage, miss chance, crit chance)
-moves["Brawler's Breakout"] = PhysicalMove("Brawler's Breakout", 65, 8, 6)
-moves["Earthforce"] = PhysicalMove("Earthforce", 70, 9, 6)
-moves["EMP Slam"] = PhysicalMove("EMP Slam", 55, 6, 7)
-moves["Zirconium Punch"] = PhysicalMove("Zirconium punch", 45, 4, 5)
-moves["Bite"] = PhysicalMove("Bite", 30, 2, 4)
-moves["Bird's Vision"] = PhysicalMove("Bird's Vision", 80, 7, 8)    # Acquired at a high level (top 3 move OP moves)
+# -- attacking moves --
+moves["Breaking strike"] = Attack("Breaking strike", 40, 60, 5, 3, 0.08)
+moves["Eagle's sweep"] = Attack("Eagle's sweep", 30, 55, 3, 4, 0)
+moves["Bite"] = Attack("Bite", 25, 30, 0, 7, 0)
+moves["Lightning spell"] = Attack("Lightning spell", 25, 40, 4, 3, 0)
+moves["Super slash"] = Attack("Super slash", 50, 70, 9, 2, 0.12)
+moves["Slash"] = Attack("Slash", 35, 45, 0, 4, 0)
+moves["Barrage"] = Attack("Barrage", 45, 65, 6, 3, 0.1)  # Acquired at a high level (top 3 move OP moves)
