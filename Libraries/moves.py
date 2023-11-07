@@ -1,12 +1,11 @@
-moves = {}
+import random
 
 
 class Move:
-
-    def __init__(self, name, cost):
+    def __init__(self, name, cost, move_type):
         self.name = name
         self.cost = cost
-        self.moveType = "Nothing"
+        self.move_type = move_type
 
     def use_move(self, entity):
         new_mana = entity.Mana - self.cost
@@ -16,37 +15,44 @@ class Move:
 
 
 class Attack(Move):
-
-    def __init__(self, name, cost, damage, miss_chance, crit_chance, recoil):
-        super().__init__(name, cost)
+    def __init__(self, name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits):
+        super().__init__(name, cost, move_type)
         self.damage = damage
-        self.missChance = miss_chance
-        self.critChance = crit_chance
+        self.miss_chance = miss_chance
+        self.crit_chance = crit_chance
         self.recoil = recoil
-        self.moveType = "Attack"
+        self.hits = hits
+
+    def calculate_damage(self) -> int:
+        return self.damage * random.randint(1, self.hits)
 
 
-class HealingMove(Move):
-
-    def __init__(self, name, cost, health_given):
-        super().__init__(name, cost)
-        self.healthGiven = health_given
-        self.moveType = "healUp"
-
-# Adding in moves
+class RangedAttack(Attack):
+    def __init__(self, name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits):
+        super().__init__(name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits)
+        self.miss_chance *= 1.1
 
 
-# -- health moves --
-moves["Small heal"] = HealingMove("Small heal", 20, 30)
-moves["Medium heal"] = HealingMove("Medium heal", 50, 60)
-moves["Big heal"] = HealingMove("Big heal", 70,
-                                120)  # <-- least common healing move
+class MeleeAttack(Attack):
+    def __init__(self, name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits):
+        super().__init__(name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits)
+        self.crit_chance *= 1.5
 
-# -- attacking moves --
-moves["Breaking strike"] = Attack("Breaking strike", 40, 60, 5, 3, 0.08)
-moves["Eagle's sweep"] = Attack("Eagle's sweep", 30, 55, 3, 4, 0)
-moves["Bite"] = Attack("Bite", 25, 30, 0, 7, 0)
-moves["Lightning spell"] = Attack("Lightning spell", 25, 40, 4, 3, 0)
-moves["Super slash"] = Attack("Super slash", 50, 70, 9, 2, 0.12)
-moves["Slash"] = Attack("Slash", 35, 45, 0, 4, 0)
-moves["Barrage"] = Attack("Barrage", 45, 65, 6, 3, 0.1)  # Acquired at a high level (top 3 move OP moves)
+
+class StatMove(Move):
+    def __init__(self, name, cost, move_type, amount, stat):
+        super().__init__(name, cost, move_type)
+        self.amount = amount
+        self.stat = stat
+
+    def stat_change(self, entity):
+        if self.stat == "Attack":
+            entity.damage_x *= self.amount
+        else:
+            entity.defense_x *= self.amount
+
+
+class HealthMove(Move):
+    def __init__(self, name, cost, move_type, health_given):
+        super().__init__(name, cost, move_type)
+        self.health_given = health_given
