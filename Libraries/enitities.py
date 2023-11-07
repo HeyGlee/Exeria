@@ -1,3 +1,6 @@
+import random
+
+
 class Entity:
     def __init__(self, name, level, health, max_health, mana, max_mana):
         self.name = name
@@ -15,8 +18,24 @@ class Entity:
             heal -= heal - self.max_health
         self.health = heal
 
-    def use_move(self, move: object, opponent: object) -> None:
-        pass
+    def use_move(self, move, opponent, func) -> None:
+        if move.move_type == "Healing":
+            move.use_move(self)
+            self.heal(move.amount)
+        elif move.move_type == "Stat":
+            move.use_move(self)
+            move.stat_change(self)
+        else:
+            if bool(move.miss_chance <= random.randint(1, 100)):
+                return
+            elif bool(move.crit_chance <= random.randint(1, 100)):
+                move.damage *= 1.3
+            move.use_move(self)
+            move.damage = move.calculate_damage()
+            opponent.health -= move.damage
+            if not func:
+                return
+            opponent.check_dead(func)
 
     def check_dead(self, func) -> None:
         if self.health <= 0:
@@ -37,7 +56,14 @@ class Character(Entity):
         self.leggings = leggings
         self.boots = boots
         self.weapon = weapon
-    
-    def level_up(self):
-        pass
-    
+
+    def level_up(self, xp_required):
+        if self.xp >= xp_required[self.level + 1]:
+            self.level += 1
+
+
+class Mob(Entity):
+    def __init__(self, name, level, health, max_health, mana, max_mana, coins_on_death):
+        super().__init__(name, level, health, max_health, mana, max_mana)
+        self.coins_on_death = coins_on_death
+        
