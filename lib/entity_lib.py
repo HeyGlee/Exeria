@@ -19,18 +19,20 @@ class Entity:
         self.health = heal
 
     def use_move(self, move, opponent, func) -> None:
-        if move.move_type == "Healing":
-            move.use_move(self)
-            self.heal(move.amount)
-        elif move.move_type == "Stat":
-            move.use_move(self)
-            move.stat_change(self)
-        else:
+        if self.mana <= 0:
+            return
+        try:
             if bool(move.miss_chance <= random.randint(1, 100)):
                 return
             elif bool(move.crit_chance <= random.randint(1, 100)):
                 move.damage *= 1.3
+        except AttributeError:
             move.use_move(self)
+        if move.move_type == "Healing":
+            self.heal(move.amount)
+        elif move.move_type == "Stat":
+            move.stat_change(self)
+        else:
             move.damage = move.calculate_damage()
             opponent.health -= move.damage
             if not func:
