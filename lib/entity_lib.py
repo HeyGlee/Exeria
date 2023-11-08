@@ -27,7 +27,8 @@ class Entity:
             elif bool(move.crit_chance <= random.randint(1, 100)):
                 move.damage *= 1.3
         except AttributeError:
-            move.use_move(self)
+            continue
+        move.use_move(self)
         if move.move_type == "Healing":
             self.heal(move.amount)
         elif move.move_type == "Stat":
