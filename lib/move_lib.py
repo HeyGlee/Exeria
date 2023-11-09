@@ -23,8 +23,8 @@ class Attack(Move):    # base class for all attacking moves (ranged & physical)
         self.recoil = recoil
         self.hits = hits
 
-    def calculate_damage(self) -> int:    # <- ISSUE: this doesn't take into account the defense and attack stat of the character and the defense stat of the opponent
-        return self.damage * random.randint(1, self.hits)
+    def calculate_damage(self, user, opponent) -> int:    # takes into account the attack stat of the character and the defense stat of the opponent + projectile amount
+        return self.damage * random.randint(1, self.hits) * user.damage_x * opponent.defense_x    # returns the damage
 
 
 class RangedAttack(Attack):    # if the move is a ranged move it is more likely to miss as you are using a projectile
@@ -36,7 +36,8 @@ class RangedAttack(Attack):    # if the move is a ranged move it is more likely 
 class MeleeAttack(Attack):    # if you are using a physical move then you are more likely to get a crit as if you land it will be more powerful
     def __init__(self, name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits):
         super().__init__(name, cost, move_type, damage, miss_chance, crit_chance, recoil, hits)
-        self.crit_chance *= 1.5    # !ISSUE: may need to balance this class by making the miss chance higher
+        self.crit_chance *= 1.5  
+        self.miss_chance *= 1.3
 
 
 class StatMove(Move):    # these moves increase the stat of the user
@@ -50,7 +51,6 @@ class StatMove(Move):    # these moves increase the stat of the user
             entity.damage_x *= self.amount
         else:
             entity.defense_x *= self.amount
-        # ^^ MAY NEED REFACTORING ^^
 
 
 class HealthMove(Move):
