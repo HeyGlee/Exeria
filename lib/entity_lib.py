@@ -36,8 +36,6 @@ class Entity:    # this is the parent class for every character in the game
         else:
             move.damage = move.calculate_damage()    # <- ISSUE: function needs to be updated to include the attack and defense buffs
             opponent.health -= move.damage    # deals the damage
-            if not func:    # <- Will be reviewed shortly (potential issue)
-                return
             opponent.check_dead(func)
 
     def check_dead(self, func) -> None:    # method to check if the character is dead, runs a function if they are
