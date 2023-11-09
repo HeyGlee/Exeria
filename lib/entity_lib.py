@@ -66,7 +66,8 @@ class Character(Entity):
 
 
 class Mob(Entity):
-    def __init__(self, name, level, health, max_health, mana, max_mana, coins_on_death):
+    def __init__(self, name, level, health, max_health, mana, max_mana, coins_on_death, xp_dropped):
         super().__init__(name, level, health, max_health, mana, max_mana)
-        self.coins_on_death = coins_on_death
+        self.coins_on_death = coins_on_death 
+        self.xp_dropped = xp_dropped
 
