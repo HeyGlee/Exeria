@@ -19,7 +19,7 @@ class Entity:    # this is the parent class for every character in the game
         self.health = heal    # adds the new health to the users health
 
     def use_move(self, move, opponent, func) -> None:
-        if self.mana <= 0:    # if the character has 0 mana then it will just instantly return and not use the move
+        if self.mana == 0:    # if the character has 0 mana then it will just instantly return and not use the move
             return
         try:   
             if bool(move.miss_chance <= random.randint(1, 100)):    # if the move misses it will just return
