@@ -1,3 +1,4 @@
+#!! CODE CAN BE SIMPLIFIED PLEASE REFACTOR !!
 class Item:
     def __init__(self, name, price, rarity, buff, item_type):
         self.name = name
