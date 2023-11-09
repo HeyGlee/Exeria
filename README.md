@@ -24,6 +24,7 @@ The character has these following armour pieces:
 - Bodyplate
 - Leggings
 - Boots</br>
+
 The character can have one of these different weapon types:
 - Axe
 - Sword
@@ -53,5 +54,5 @@ Attempting to battle with 0 mana or 0 health will result into SYRIS denying you 
 SYSTEM (game; often comes up when dealing with logic e.g. character creation) </br>
 SYRIS (This is the person who runs the games. They overlook you and one day you will defeat them) </br>
 JAKEY (This is the shopkeeper. If you converse with him he may get you deals!!!) </br>
-ClAUDE (Your rival. You will have to fight him at one very crucial point. No spoilers!)</br>
+CLAUDE (Your rival. You will have to fight him at one very crucial point. No spoilers!)</br>
 
