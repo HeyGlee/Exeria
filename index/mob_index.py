@@ -1,5 +1,5 @@
-from lib.entity_lib import Mob as Mob
-from index.move_index import move_list as move_list
+from lib.entity_lib import Mob as Mob        # Gets the Mob class
+from index.move_index import move_list as move_list        # Gets all the moves
 
 mobs = {"skeleton": Mob("Skeleton", 1, 100, 100, 120, 120, 50, 20),
         "zombie": Mob("Zombie", 1, 90, 90, 130, 130, 60, 40), 
