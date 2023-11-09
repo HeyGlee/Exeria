@@ -34,7 +34,7 @@ class Entity:    # this is the parent class for every character in the game
         elif move.move_type == "Stat":
             move.stat_change(self)
         else:
-            move.damage = move.calculate_damage()    # <- ISSUE: function needs to be updated to include the attack and defense buffs
+            move.damage = move.calculate_damage(self, opponent)    # <- ISSUE: function needs to be updated to include the attack and defense buffs
             opponent.health -= move.damage    # deals the damage
             opponent.check_dead(func)
 
