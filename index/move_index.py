@@ -1,4 +1,4 @@
-import Lib.move_lib as moves
+import Lib.move_lib as moves  # gets all the moves
 
 move_list = {"Small heal": moves.HealthMove("Small heal", 20, "Healing", 30),  # Healing moves
              "Medium heal": moves.HealthMove("Medium heal", 39, "Healing", 60),
