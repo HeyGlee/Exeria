@@ -1,33 +1,30 @@
-#!! CODE CAN BE SIMPLIFIED PLEASE REFACTOR !!
 class Item:
-    def __init__(self, name, price, rarity, buff, item_type):
+    def __init__(self, name, price, rarity, buff):
         self.name = name
         self.price = price
         self.rarity = rarity
         self.buff = buff
 
-    def equip_item(self, character):
-        character.defense_x += self.buff / 20
-        if "chestplate" in self.name:
-            character.chestplate = self
-        elif "leggings" in self.name:
-            character.leggings = self
-        elif "boots" in self.name:
-            character.boots = self
-        elif "helmet" in self.name:
-            character.helmet = self
-        else:
-            character.weapon = self
 
-    def unequipped_item(self, character):
-        character.defense_x -= self.buff / 20
-        if "chestplate" in self.name:
-            character.chestplate = None
-        elif "leggings" in self.name:
-            character.leggings = None
-        elif "boots" in self.name:
-            character.boots = None
-        elif "helmet" in self.name:
-            character.helmet = None
+    def increase_stat(self, stat, character):   # <- increases stat depending on its given param
+        if stat == "defense":
+            character.defense_x += self.buff / 20   # <- math for calculating buffs
         else:
-            character.weapon = None
+            character.attack_x += self.buff / 20
+
+
+    def equip_item(self, character, equipping, stat):
+        result = None if not equipping else self   # <- uneqip is not equipping else add it to inv.
+        self.increase_stat(stat, character)
+        if "chestplate" in self.name:
+            character.chestplate = result
+        elif "leggings" in self.name:
+            character.leggings = result
+        elif "boots" in self.name:
+            character.boots = result
+        elif "helmet" in self.name:
+            character.helmet = result
+        else:
+            character.weapon = result
+    
+    
