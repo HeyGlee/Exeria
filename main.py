@@ -34,15 +34,15 @@ def main():
 
 
         def display_selected(class_name):
-              print(f"GAME: So {name}, you have selected the {class_name}")
-                wait(1.2)
-                print("GAME: Creating character.", end="")
-                wait(0.8)
-                print(".",end="")
-                wait(0.8)
-                print(".")
-                wait(1.2)
-                print("GAME: Character created!") 
+            print(f"GAME: So {name}, you have selected the {class_name}")
+            wait(1.2)
+            print("GAME: Creating character.", end="")
+            wait(0.8)
+            print(".",end="")
+            wait(0.8)
+            print(".")
+            wait(1.2)
+            print("GAME: Character created!") 
 
 
         match selected:
