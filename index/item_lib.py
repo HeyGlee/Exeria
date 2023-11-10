@@ -1,0 +1,22 @@
+from lib.items_lib import Item as item  # gets the item class
+
+items = {"Leaf helmet": item("Leaf helmet", 20, "Common", 10),
+         "Leaf chestplate": item("Leaf chestplate", 35, "Common", 20),
+         "Leaf leggings": item("Leaf leggings", 30, "Common", 15),
+         "Leaf boots": item("Leaf boots", 25, "Common", 10),
+         "Leather helmet": item("Leather helmet", 80, "Uncommon", 30),
+         "Leather chestplate": item("Leather chestplate", 105, "Uncommon", 45),
+         "Leather leggings": item("Leatherf leggings", 90, "Uncommon", 37),
+         "Leather boots": item("Leather boots", 85, "Uncommon", 32),
+         "Gold helmet": item("Gold helmet", 150, "Rare", 60),
+         "Gold chestplate": item("Gold chestplate", 190, "Rare", 80),
+         "Gold leggings": item("Gold leggings", 165, "Rare", 72),
+         "Gold boots": item("Gold boots", 160, "Rare", 65),
+         "Titanium helmet": item("Titanium helmet", 520, "Legendary", 200),
+         "Titanium chestplate": item("Titanium chestplate", 700, "Legendary", 250),
+         "Titanium leggings": item("Titanium leggings", 650, "Legendary", 230),
+         "Titanium boots": item("Titanium boots", 570, "Legendary", 215),
+         "Wooden sword": item("Wooden sword", 20, "Common", 15),
+         "Iron sword": item("Wooden sword", 85, "Rare", 60),
+         "Platinum sword": item("Wooden sword", 250, "Epic", 105),
+         "Titanium sword": item("Wooden sword", 600, "Legendary", 170),}  # main list for all the items
