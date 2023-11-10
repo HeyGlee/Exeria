@@ -19,7 +19,7 @@ class Entity:    # this is the parent class for every character in the game
         self.health = heal    # adds the new health to the users health
 
     def use_move(self, move, opponent, func) -> None:
-        if self.mana <= 0:    # if the character has 0 mana then it will just instantly return and not use the move
+        if self.mana == 0:    # if the character has 0 mana then it will just instantly return and not use the move
             return
         try:   
             if bool(move.miss_chance <= random.randint(1, 100)):    # if the move misses it will just return
@@ -34,10 +34,8 @@ class Entity:    # this is the parent class for every character in the game
         elif move.move_type == "Stat":
             move.stat_change(self)
         else:
-            move.damage = move.calculate_damage()    # <- ISSUE: function needs to be updated to include the attack and defense buffs
+            move.damage = move.calculate_damage(self, opponent)    # <- ISSUE: function needs to be updated to include the attack and defense buffs
             opponent.health -= move.damage    # deals the damage
-            if not func:    # <- Will be reviewed shortly (potential issue)
-                return
             opponent.check_dead(func)
 
     def check_dead(self, func) -> None:    # method to check if the character is dead, runs a function if they are
