@@ -32,7 +32,6 @@ def main():
         print("4) Rich: starts off with 150 coins")
         selected = wait_for_input()
 
-
         def display_selected(class_name):
             print(f"GAME: So {name}, you have selected the {class_name}")
             wait(1.2)
@@ -46,19 +45,19 @@ def main():
 
 
         match selected:
-            case "1":
+            case 1:
                 display_selected("newbie class")
                 return Character(name, 1, 100, 100, 100, 100, 
                                  1, 0, 1, 1, None, None, None, None, items["Wooden sword"])
-            case "2":
+            case 2:
                 display_selected("buffed class")
                 return Character(name, 1, 190, 190, 100, 100, 
                                  1, 0, 1, 1, None, None, None, None, items["Wooden sword"])
-            case "3":
+            case 3:
                 display_selected("mage class")
                 return Character(name, 1, 100, 100, 190, 190, 
                                  1, 0, 1, 1, None, None, None, None, items["Wooden sword"])
-            case "4":
+            case 4:
                 display_selected("rich class")
                 return Character(name, 1, 100, 100, 100, 100, 
                                  1, 150, 1, 1, None, None, None, None, items["Wooden sword"])
