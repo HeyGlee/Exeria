@@ -32,7 +32,7 @@ def main():
         print("4) Rich: starts off with 150 coins")
         selected = wait_for_input()
 
-        def display_selected(class_name):
+        def display_selected(class_name: str):
             print(f"GAME: So {name}, you have selected the {class_name}")
             wait(1.2)
             print("GAME: Creating character.", end="")
