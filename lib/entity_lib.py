@@ -27,7 +27,7 @@ class Entity:    # this is the parent class for every character in the game
             elif bool(move.crit_chance <= random.randint(1, 100)):    # calculates for crit
                 move.damage *= 1.3
         except AttributeError:
-            continue
+            pass
         move.use_move(self)    # uses the moves mana
         if move.move_type == "Healing":    # checks for the type of move
             self.heal(move.amount)
